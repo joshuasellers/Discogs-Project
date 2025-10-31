@@ -1,11 +1,7 @@
-import requests
+import tokens
+import discogs_client
 
-response = requests.get('https://example.com')
-print(response.text)
+d = discogs_client.Client('ExampleApplication/0.1', user_token=tokens.token)
 
-# For a POST request with data
-# https://api.discogs.com/releases/249504 --user-agent "FooBarApp/3.0"
-
-data = {'user-agent': 'FooBarApp/3.0'}
-response = requests.post('https://api.discogs.com/releases/249504', data=data)
-print(response.json())
+results = d.search('Stockholm By Night', type='release')
+print(results.pages)
