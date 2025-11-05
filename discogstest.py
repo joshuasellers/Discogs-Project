@@ -2,6 +2,28 @@ import tokens
 import albumUrls
 import discogs_client  # https://github.com/joalla/discogs_client
 import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
+import dropbox
+from dropbox import DropboxOAuth2FlowNoRedirect
+
+
+def dropbox(app, secret):
+    auth_flow = DropboxOAuth2FlowNoRedirect(APP_KEY, APP_SECRET)
+
+    authorize_url = auth_flow.start()
+    print("1. Go to: " + authorize_url)
+    print("2. Click \"Allow\" (you might have to log in first).")
+    print("3. Copy the authorization code.")
+    auth_code = input("Enter the authorization code here: ").strip()
+
+    try:
+        oauth_result = auth_flow.finish(auth_code)
+    except Exception as e:
+        print('Error: %s' % (e,))
+        exit(1)
+
+    with dropbox.Dropbox(oauth2_access_token=oauth_result.access_token) as dbx:
+        dbx.users_get_current_account()
+        print("Successfully set up client!")
 
 
 def google_search(imageurl):
@@ -33,6 +55,7 @@ def discogs_collection_update(title):
 def main():
     title = google_search(albumUrls.sgt)
     discogs_collection_update(title)
+    dropbox(tokens.dropbox_app,tokens.dropbox_secret)
 
 
 if __name__ == '__main__':
