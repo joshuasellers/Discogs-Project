@@ -7,7 +7,7 @@ from dropbox import DropboxOAuth2FlowNoRedirect
 
 
 def dropbox(app, secret):
-    auth_flow = DropboxOAuth2FlowNoRedirect(APP_KEY, APP_SECRET)
+    auth_flow = DropboxOAuth2FlowNoRedirect(app, secret)
 
     authorize_url = auth_flow.start()
     print("1. Go to: " + authorize_url)
