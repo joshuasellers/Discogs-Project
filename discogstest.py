@@ -7,6 +7,9 @@ from dropbox import DropboxOAuth2FlowNoRedirect
 
 
 def dropboxCall(app, secret):
+    """
+    https://dropbox-sdk-python.readthedocs.io/en/latest/api/dropbox.html#dropbox.dropbox_client.Dropbox
+    """
     auth_flow = DropboxOAuth2FlowNoRedirect(app, secret)
 
     authorize_url = auth_flow.start()
@@ -22,7 +25,7 @@ def dropboxCall(app, secret):
         exit(1)
 
     with dropbox.Dropbox(oauth2_access_token=oauth_result.access_token) as dbx:
-        dbx.users_get_current_account()
+        print(dbx.users_get_current_account())
         print("Successfully set up client!")
 
 
