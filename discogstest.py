@@ -6,7 +6,7 @@ import dropbox
 from dropbox import DropboxOAuth2FlowNoRedirect
 
 
-def dropbox(app, secret):
+def dropboxCall(app, secret):
     auth_flow = DropboxOAuth2FlowNoRedirect(app, secret)
 
     authorize_url = auth_flow.start()
@@ -55,7 +55,7 @@ def discogs_collection_update(title):
 def main():
     title = google_search(albumUrls.sgt)
     discogs_collection_update(title)
-    dropbox(tokens.dropbox_app,tokens.dropbox_secret)
+    dropboxCall(tokens.dropbox_app,tokens.dropbox_secret)
 
 
 if __name__ == '__main__':
