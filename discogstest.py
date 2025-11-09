@@ -26,7 +26,7 @@ def dropboxCall(app, secret):
 
     with dropbox.Dropbox(oauth2_access_token=oauth_result.access_token) as dbx:
         print(dbx.users_get_current_account())
-        print(dbx.sharing_list_folders())
+        print(dbx.files_list_folder("/github/Discogs-Project/albums", True, True))
         print("Successfully set up client!")
 
 
