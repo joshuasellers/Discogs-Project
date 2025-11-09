@@ -26,6 +26,7 @@ def dropboxCall(app, secret):
 
     with dropbox.Dropbox(oauth2_access_token=oauth_result.access_token) as dbx:
         print(dbx.users_get_current_account())
+        print(dbx.sharing_list_folders())
         print("Successfully set up client!")
 
 
