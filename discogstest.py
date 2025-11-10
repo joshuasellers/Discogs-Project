@@ -25,9 +25,16 @@ def dropboxCall(app, secret):
         exit(1)
 
     with dropbox.Dropbox(oauth2_access_token=oauth_result.access_token) as dbx:
-        print(dbx.users_get_current_account())
-        print(dbx.files_list_folder("/github/Discogs-Project/albums", True, True))
-        print("Successfully set up client!")
+        result = dbx.files_list_folder("/github/Discogs-Project/albums", True, True)
+        cursor = result.has_more
+        files = []
+        files.extend(result.entries)
+        while cursor:
+            result = dbx.files_list_folder_continue(result.cursor)
+            files.extend(result.entries)
+            cursor = result.has_more
+        for file in files:
+            print(file)
 
 
 def google_search(imageurl):
