@@ -3,14 +3,19 @@ import albumUrls
 import discogs_client  # https://github.com/joalla/discogs_client
 import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
 import imageUrl
+from serpapi import GoogleSearch
 
 
 def google_search(imageurl):
     # commenting out to save API calls
-    # client = serpapi.Client(api_key=tokens.serpapi_key)
-    # results = client.search(engine="google_reverse_image", image_url=imageurl)
-    # title = results['image_results'][0]['title']
-    title = "Born To Run"
+    params = {
+        'api_key': tokens.serpapi_key,  # your serpapi api
+        'engine': 'google_lens',  # SerpApi search engine
+        'url': imageurl
+    }
+    results = GoogleSearch(params).get_dict()
+    title = results['related_content'][0]['query']
+    #title = "Born To Run"
     return title
 
 
@@ -33,8 +38,9 @@ def discogs_collection_update(title):
 
 def main():
     urls = imageUrl.get_raw_album_urls()
-    title = google_search(urls)
-    discogs_collection_update(title)
+    for url in urls:
+        title = google_search(url)
+        discogs_collection_update(title)
 
 
 if __name__ == '__main__':
