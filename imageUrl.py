@@ -38,7 +38,6 @@ def get_album_links():
     if json_albums.get('payload').get('tree').get('items'):
         for item in json_albums.get('payload').get('tree').get('items'):
             album_links.append(url + urllib.parse.quote(item['name']))
-    print(album_links)
     return album_links
 
 
@@ -58,5 +57,4 @@ def get_raw_album_urls():
         json_image = json.loads(image_tag.string)
         if json_image.get('payload').get('blob'):
             raw_urls.append(json_image.get('payload').get('blob')['displayUrl'])
-    print(raw_urls)
     return raw_urls

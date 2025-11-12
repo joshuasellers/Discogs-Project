@@ -2,45 +2,7 @@ import tokens
 import albumUrls
 import discogs_client  # https://github.com/joalla/discogs_client
 import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
-import dropbox
-from dropbox import DropboxOAuth2FlowNoRedirect
-
-
-def dropboxCall(app, secret):
-    """
-    https://dropbox-sdk-python.readthedocs.io/en/latest/api/dropbox.html#dropbox.dropbox_client.Dropbox
-    """
-    auth_flow = DropboxOAuth2FlowNoRedirect(app, secret)
-
-    authorize_url = auth_flow.start()
-    print("1. Go to: " + authorize_url)
-    print("2. Click \"Allow\" (you might have to log in first).")
-    print("3. Copy the authorization code.")
-    auth_code = input("Enter the authorization code here: ").strip()
-
-    try:
-        oauth_result = auth_flow.finish(auth_code)
-    except Exception as e:
-        print('Error: %s' % (e,))
-        exit(1)
-
-    with dropbox.Dropbox(oauth2_access_token=oauth_result.access_token) as dbx:
-        result = dbx.files_list_folder("/github/Discogs-Project/albums", True, True)
-        cursor = result.has_more
-        files = []
-        files.extend(result.entries)
-        while cursor:
-            result = dbx.files_list_folder_continue(result.cursor)
-            files.extend(result.entries)
-            cursor = result.has_more
-        urls = []
-        for file in files:
-            if isinstance(file, dropbox.dropbox_client.files.FileMetadata):
-                print(file)
-                shared_url = dbx.sharing_get_file_metadata(file.id)
-                print(shared_url.preview_url)
-                urls.append(shared_url.preview_url)
-        return urls
+import imageUrl
 
 
 def google_search(imageurl):
@@ -70,7 +32,7 @@ def discogs_collection_update(title):
 
 
 def main():
-    urls = dropboxCall(tokens.dropbox_app,tokens.dropbox_secret)
+    urls = imageUrl.get_raw_album_urls()
     title = google_search(urls)
     discogs_collection_update(title)
 
