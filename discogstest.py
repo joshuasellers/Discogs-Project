@@ -33,8 +33,14 @@ def dropboxCall(app, secret):
             result = dbx.files_list_folder_continue(result.cursor)
             files.extend(result.entries)
             cursor = result.has_more
+        urls = []
         for file in files:
-            print(file)
+            if isinstance(file, dropbox.dropbox_client.files.FileMetadata):
+                print(file)
+                shared_url = dbx.sharing_get_file_metadata(file.id)
+                print(shared_url.preview_url)
+                urls.append(shared_url.preview_url)
+        return urls
 
 
 def google_search(imageurl):
@@ -64,9 +70,9 @@ def discogs_collection_update(title):
 
 
 def main():
-    title = google_search(albumUrls.sgt)
+    urls = dropboxCall(tokens.dropbox_app,tokens.dropbox_secret)
+    title = google_search(urls)
     discogs_collection_update(title)
-    dropboxCall(tokens.dropbox_app,tokens.dropbox_secret)
 
 
 if __name__ == '__main__':
