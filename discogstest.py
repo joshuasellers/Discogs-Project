@@ -4,18 +4,25 @@ import discogs_client  # https://github.com/joalla/discogs_client
 import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
 import imageUrl
 from serpapi import GoogleSearch
+import requests
 
 
 def google_search(imageurl):
     # commenting out to save API calls
     params = {
         'api_key': tokens.serpapi_key,  # your serpapi api
-        'engine': 'google_lens',  # SerpApi search engine
+        "engine": "google_lens",
+        "search_type": "products",
+        "q": "Discogs",
         'url': imageurl
     }
-    results = GoogleSearch(params).get_dict()
-    title = results['related_content'][0]['query']
-    #title = "Born To Run"
+    url = "https://www.searchapi.io/api/v1/search"
+
+    response = requests.get(url, params=params)
+    print(response.text)
+    #results = GoogleSearch(params).get_dict()
+    #ex = results['related_content'][0]['query']
+    title = "Born To Run"
     return title
 
 
