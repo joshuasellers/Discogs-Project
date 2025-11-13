@@ -1,9 +1,7 @@
 import tokens
-import albumUrls
 import discogs_client  # https://github.com/joalla/discogs_client
 import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
 import imageUrl
-from serpapi import GoogleSearch
 import requests
 
 
