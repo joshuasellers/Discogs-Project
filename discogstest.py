@@ -3,6 +3,7 @@ import discogs_client  # https://github.com/joalla/discogs_client
 import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
 import imageUrl
 import requests
+import json
 
 
 def google_search(imageurl):
@@ -16,12 +17,11 @@ def google_search(imageurl):
     }
     url = "https://www.searchapi.io/api/v1/search"
 
-    response = requests.get(url, params=params)
-    print(response.text)
-    #results = GoogleSearch(params).get_dict()
-    #ex = results['related_content'][0]['query']
-    title = "Born To Run"
-    return title
+    response = requests.get(url, params=params).text
+    response_json = json.loads(response)
+    print(response_json["visual_matches"][0])
+    # title = "Born To Run"
+    return response_json["visual_matches"][0]["title"]
 
 
 def discogs_collection_update(title):
