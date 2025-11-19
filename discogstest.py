@@ -4,6 +4,7 @@ import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google
 import imageUrl
 import requests
 import json
+from pathlib import Path
 
 
 def google_search(imageurl):
@@ -33,10 +34,25 @@ def discogs_collection_update(title):
 
     me = d.identity()
 
+    file_path = Path("discog_output.txt")
+
+    if file_path.is_file():
+        print(f"The file {file_path} exists.")
+        with open(file_path, "a") as file:
+            file.write("\nThis line is appended to the end.")
+            file.write("\nAnd another line.")
+    else:
+        print(f"The file {file_path} does not exist")
+        with open(file_path, "w") as file:
+            file.write("Hello, world!\n")
+            file.write("This is a new file.")
+
+    """ Commenting this out for now
     if first_result.id not in [item.id for item in me.collection_folders[0].releases]:
         me.collection_folders[0].add_release(first_result.id)
         print("added to collection")
-
+    """
+    print("Collection:")
     for item in me.collection_folders[0].releases:
         print(item)
 
