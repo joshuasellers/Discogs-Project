@@ -18,10 +18,10 @@ def google_search(imageurl):
     }
     url = "https://www.searchapi.io/api/v1/search"
     print("Getting google result")
-    response = requests.get(url, params=params).text
-    response_json = json.loads(response)
+    response = requests.get(url, params=params)
+    print(response)
+    response_json = json.loads(response.text)
     print(response_json)
-    print(response_json["visual_matches"][0])
     # title = "Born To Run"
     return response_json["visual_matches"][0]["title"]
 
