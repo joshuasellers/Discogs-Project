@@ -5,17 +5,21 @@ import imageUrl
 import requests
 import json
 from pathlib import Path
+from serpapi import GoogleSearch
 
 
 def google_search(imageurl):
     # commenting out to save API calls
     params = {
-        'api_key': tokens.serpapi_key,  # your serpapi api
+        "api_key": tokens.serpapi_key,  # your serpapi api
         "engine": "google_lens",
         "search_type": "products",
         "q": "Discogs",
-        'url': imageurl
+        "url": imageurl
     }
+    search = GoogleSearch(params)
+    results = search.get_dict()
+    print(results)
     url = "https://www.searchapi.io/api/v1/search"
     print("Getting google result")
     response = requests.get(url, params=params)
