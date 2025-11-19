@@ -1,11 +1,10 @@
 import tokens
 import discogs_client  # https://github.com/joalla/discogs_client
-import serpapi  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
 import imageUrl
 import requests
 import json
 from pathlib import Path
-from serpapi import GoogleSearch
+from serpapi import GoogleSearch  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
 
 
 def google_search(imageurl):
@@ -20,14 +19,10 @@ def google_search(imageurl):
     search = GoogleSearch(params)
     results = search.get_dict()
     print(results)
-    url = "https://www.searchapi.io/api/v1/search"
-    print("Getting google result")
-    response = requests.get(url, params=params)
+    response = results['visual_matches']
     print(response)
-    response_json = json.loads(response.text)
-    print(response_json)
     # title = "Born To Run"
-    return response_json["visual_matches"][0]["title"]
+    return response[0]["title"]
 
 
 def discogs_collection_update(title):
@@ -44,11 +39,11 @@ def discogs_collection_update(title):
     if file_path.is_file():
         print(f"The file {file_path} exists.")
         with open(file_path, "a") as file:
-            file.write(f"\n{title} | {first_result}")
+            file.write(f"\nGoogle Result: {title}, Discogs Result: {first_result}")
     else:
         print(f"The file {file_path} does not exist")
         with open(file_path, "w") as file:
-            file.write(f"{title} | {first_result}")
+            file.write(f"Google Result: {title}, Discogs Result: {first_result}")
 
     """ Commenting this out for now
     if first_result.id not in [item.id for item in me.collection_folders[0].releases]:
