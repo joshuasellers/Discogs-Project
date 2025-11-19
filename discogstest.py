@@ -17,9 +17,10 @@ def google_search(imageurl):
         'url': imageurl
     }
     url = "https://www.searchapi.io/api/v1/search"
-
+    print("Getting google result")
     response = requests.get(url, params=params).text
     response_json = json.loads(response)
+    print(response_json)
     print(response_json["visual_matches"][0])
     # title = "Born To Run"
     return response_json["visual_matches"][0]["title"]
@@ -39,13 +40,11 @@ def discogs_collection_update(title):
     if file_path.is_file():
         print(f"The file {file_path} exists.")
         with open(file_path, "a") as file:
-            file.write("\nThis line is appended to the end.")
-            file.write("\nAnd another line.")
+            file.write(f"\n{title} | {first_result}")
     else:
         print(f"The file {file_path} does not exist")
         with open(file_path, "w") as file:
-            file.write("Hello, world!\n")
-            file.write("This is a new file.")
+            file.write(f"{title} | {first_result}")
 
     """ Commenting this out for now
     if first_result.id not in [item.id for item in me.collection_folders[0].releases]:

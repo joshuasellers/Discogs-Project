@@ -35,6 +35,7 @@ def get_album_links():
     albums = list(filter(lambda x: "name" in str(x) and "path" in str(x), a))[0]
     json_albums = json.loads(albums.string)
     album_links = []
+    print("Getting link")
     if json_albums.get('payload').get('tree').get('items'):
         for item in json_albums.get('payload').get('tree').get('items'):
             album_links.append(url + urllib.parse.quote(item['name']))
@@ -50,6 +51,7 @@ def get_raw_album_urls():
     urls = get_album_links()
     raw_urls = []
     for url in urls:
+        print("URL " + url)
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
         scripts = soup.find_all('script')
