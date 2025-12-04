@@ -59,6 +59,7 @@ def discogs_collection_update(title, url):
 
 
 def confirm_additions(file):
+    # TODO - test new function
     d = discogs_client.Client('VinylImageReadingProject/0.1', user_token=tokens.discogs_token)
     final_lines = []
 
