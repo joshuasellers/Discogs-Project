@@ -1,7 +1,6 @@
 import tokens
 import discogs_client  # https://github.com/joalla/discogs_client
 import imageUrl
-import requests
 import json
 from pathlib import Path
 from serpapi import GoogleSearch  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
@@ -74,7 +73,7 @@ def update_collection():
     # TODO: test function
     d = discogs_client.Client('VinylImageReadingProject/0.1', user_token=tokens.discogs_token)
     me = d.identity()
-    
+
     with open(output_file, 'r') as f:
         for line in f:
             content = line.split("*/*")
