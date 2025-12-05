@@ -36,11 +36,11 @@ def discogs_collection_update(title, url):
     file_path = Path(output_file)
 
     if file_path.is_file():
-        print(f"The file {file_path} exists.")
+        print(f"The file {file_path} exists - opening it")
         with open(file_path, "a") as file:
             file.write(f"\nGoogle Result: {title} for URL: {url} */* Discogs Result: {first_result}")
     else:
-        print(f"The file {file_path} does not exist")
+        print(f"The file {file_path} does not exist - creating it")
         with open(file_path, "w") as file:
             file.write(f"Google Result: {title} for URL: {url} */* Discogs Result: {first_result}")
 
@@ -59,7 +59,7 @@ def confirm_additions(file):
             new_discog_input = input("Edit the Discog result (blank for no change): ")
             results = d.search(new_discog_input, type='release')
             first_result = results[0]
-            check_input = input(f"Does this match what you want: {first_result}? Y/N")
+            check_input = input(f"Does this match what you want: {first_result}? Y/N: ")
             if check_input == "Y":
                 content[1] = first_result
                 final_lines.append(content)
