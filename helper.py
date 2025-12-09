@@ -60,3 +60,30 @@ def get_raw_album_urls():
         if json_image.get('payload').get('blob'):
             raw_urls.append(json_image.get('payload').get('blob')['displayUrl'])
     return raw_urls
+
+
+def multiple_choice(options):
+    """
+    Gets user input for a list of options
+    :param options: list to chose from
+    :return: the selected list item
+    """
+    # Display options with numbers starting from 1
+    for index, option in enumerate(options, 1):
+        print(f"{index}. {option}")
+
+    while True:
+        # Get user input as a string and attempt to convert to an integer
+        choice_str = input("Enter the number of your choice: ")
+        try:
+            choice_int = int(choice_str)
+            # Check if the chosen number is within the valid range
+            if 1 <= choice_int <= len(options):
+                selected_option = options[choice_int - 1]
+                print(f"You selected: {selected_option}")
+                return selected_option  # Exit the loop once a valid choice is made
+            else:
+                print("Invalid choice. Please enter a number from the list.")
+        except ValueError:
+            # Handle cases where the user enters non-integer input
+            print("Invalid input. Please enter a valid number.")
