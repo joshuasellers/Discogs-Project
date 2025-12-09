@@ -9,7 +9,6 @@ output_file = "discog_output.txt"
 
 
 def google_search(imageurl):
-    # commenting out to save API calls
     params = {
         "api_key": tokens.serpapi_key,  # your serpapi api
         "engine": "google_lens",
