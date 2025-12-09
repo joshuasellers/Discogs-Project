@@ -1,7 +1,6 @@
 import tokens
 import discogs_client  # https://github.com/joalla/discogs_client
 import imageUrl
-import json
 import os
 from pathlib import Path
 from serpapi import GoogleSearch  # potential free alternative: https://github.com/RMNCLDYO/Google-Reverse-Image-Search
