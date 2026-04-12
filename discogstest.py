@@ -80,9 +80,15 @@ def confirm_additions(file):
                 first_result = results[0]
                 check_input = input(f"Does this match what you want: {first_result}? Y/N: ")
                 if check_input == "Y":
-                    final_lines.append(f"{content[0]} */* {first_result}")
+                    condition_input = input("What is the condition of your copy: Mint, Near Mint, " +
+                                            "Very Good Plus, Very Good, Good Plus, Good, Fair, or Poor")
+                    final_lines.append(f"{content[0]} */* {first_result} */* {condition_input}")
+                else:
+                    print("Skipping this one")
             else:
-                final_lines.append(line)
+                condition_input = input("What is the condition of your copy: Mint, Near Mint, " +
+                                        "Very Good Plus, Very Good, Good Plus, Good, Fair, or Poor")
+                final_lines.append(f"{line} */* {condition_input}")
 
     with open(file, 'w') as f:
         for line in final_lines:
