@@ -82,12 +82,17 @@ def confirm_additions(file):
                 if check_input == "Y":
                     condition_input = input("What is the condition of your copy: Mint, Near Mint, " +
                                             "Very Good Plus, Very Good, Good Plus, Good, Fair, or Poor")
+                    if condition_input not in ["Mint", "Near Mint", "Very Good Plus", "Very Good", "Good Plus", "Good", "Fair", "Poor"]:
+                        condition_input = 'Mint'
                     final_lines.append(f"{content[0]} */* {first_result} */* {condition_input}")
                 else:
                     print("Skipping this one")
             else:
                 condition_input = input("What is the condition of your copy: Mint, Near Mint, " +
                                         "Very Good Plus, Very Good, Good Plus, Good, Fair, or Poor")
+                if condition_input not in ["Mint", "Near Mint", "Very Good Plus", "Very Good", "Good Plus", "Good",
+                                           "Fair", "Poor"]:
+                    condition_input = 'Mint'
                 final_lines.append(f"{line} */* {condition_input}")
 
     with open(file, 'w') as f:
