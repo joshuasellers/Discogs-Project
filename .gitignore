@@ -1,6 +1,9 @@
 # Paswords and tokens
 tokens.py
 
+# Collection upload drafts
+collection_draft.json
+
 # IDE
 .idea/
 .DS_Store

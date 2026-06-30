@@ -1,0 +1,5 @@
+discogs-client
+google-search-results
+requests
+beautifulsoup4
+inquirer
